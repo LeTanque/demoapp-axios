@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+
 import './App.css';
 
+import Notes from "./Notes";
+
+
 function App() {
+
+  const [ state, setState ] = useState([])
+
+  useEffect(() => {
+    axios.get("https://fe-notes.herokuapp.com/note/get/all")
+    .then((responseFromAxios) => {
+      // console.log('responseFromAxios --> ', responseFromAxios);
+      setState(responseFromAxios.data);
+    })
+    .catch((error) => console.log(error));
+
+  },[])
+
+
+  console.log('state --> ', state);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+
+
+        <Notes notes={state} />
+
+
     </div>
   );
 }
 
+
 export default App;
+

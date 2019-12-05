@@ -26,9 +26,10 @@ function App() {
   return (
     <div className="App">
       
+      
 
 
-        <Notes notes={state} />
+      <Notes notes={state} />
 
 
     </div>
